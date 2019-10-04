@@ -1,15 +1,26 @@
 package com.georgiev.springintroapp.web;
 
-import org.springframework.stereotype.Controller;
+import com.georgiev.springintroapp.entities.Car;
+import com.georgiev.springintroapp.repositories.CarsRepository;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 
-@Controller
+@RestController
 public class CarsController {
 
-    @GetMapping("/")
-    public String getCars(){
-        return "index";
+    private final CarsRepository repository;
+
+    public  CarsController(CarsRepository repository){
+        this.repository = repository;
+    }
+
+    @GetMapping("/cars")
+    public List<Car> getCars(){
+
+        return repository.findAll();
     }
 
 
